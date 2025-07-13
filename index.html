@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta Spotify</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .spotify-card {
+      width: 320px;
+      margin: 50px auto 20px auto;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    .cover {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    h2, h3 {
+      margin: 10px 0 5px;
+    }
+
+    .play-button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #1db954;
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .carta {
+      display: none;
+      margin: 30px auto;
+      max-width: 600px;
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 12px;
+      font-size: 18px;
+      position: relative;
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+
+    .heart {
+      position: absolute;
+      animation: float 5s ease forwards, colorChange 2s infinite;
+      font-size: 24px;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+
+    @keyframes colorChange {
+      0%   { color: #FF69B4; }
+      25%  { color: #FF1493; }
+      50%  { color: #DC143C; }
+      75%  { color: #FF6347; }
+      100% { color: #FF69B4; }
+    }
+  </style>
+</head>
+<body onclick="crearCorazon(event)">
+
+  <div class="spotify-card">
+    <img src="caratula.jpg" class="cover" alt="Carátula">
+    <h2>Cafuné</h2>
+    <h3>Micro TDH</h3>
+    <button class="play-button" onclick="mostrarCarta()">▶ Reproducir</button>
+    <audio id="musica" preload="auto">
+      <source src="cafune_micro_tdh.mp3" type="audio/mpeg" />
+      Tu navegador no soporta audio HTML5.
+    </audio>
+  </div>
+
+  <div class="carta" id="carta"></div>
+
+  <script>
+    const textoCarta = `Holaaa bebeee hermoshaaaaa 
+Se que tenemos 14 días desde que hablamos 
+Pero en estas 2 semanas 
+14 días 
+336 horas 
+20,160 minutos 
+1,209,600 segundos 
+
+Me haz demostrado lo tanto que vales amor mío 
+Y por eso desde nuestro primer cruce de palabras, yo ya sabía lo que quería junto a ti, lo que quiero vivir y todo lo que quiero en esta vida está en ti.
+Por eso no tengo más palabras para decirte bebé.
+Sos preciosa.
+Sos el amor de mi vida.
+Y quiero vivir contigo toda mi vida hermosura mía.
+De verdad te amo muchísimo.
+Sos una chica increíble en cada aspecto y sentido, y no pienso dejar que nadie te haga sentir lo contrario, mi amor.
+Te mereces todo lo que está bien en este mundito bb, me esforzaré en darte todo lo posible mi bebé y en hacerte feliz.
+De verdad que Dios...
+Mujer me encantás, una locura, sos perfecta ante mis ojos amor mío y hoy es un día especial bebé porque ya es tu cumpleaños.
+Sé que quizás es poquito bebé, pero lo escribo siendo sincero y de verdad: te amo a montones hermosura mía.
+Y shhh que esa Cris se busque otra, tú eres sólo mía bebé ❤️🤭
+
+Te amo muchísimo y que pases un hermosísimo día amor de mi vida.
+Feliz cumpleaños bebé 🥹❤️
+
+Att: el rompe bolas jaja`;
+
+    function mostrarCarta() {
+      const carta = document.getElementById("carta");
+      const musica = document.getElementById("musica");
+      carta.style.display = "block";
+      musica.play();
+
+      // Animación de escritura lenta
+      let i = 0;
+      function escribirTexto() {
+        if (i < textoCarta.length) {
+          carta.innerHTML += textoCarta.charAt(i);
+          i++;
+          setTimeout(escribirTexto, 70);
+        }
+      }
+      escribirTexto();
+    }
+
+    function crearCorazon(e) {
+      function getRandomColor() {
+        const colores = ["#FF69B4", "#FF1493", "#FF4500", "#DC143C", "#FF6347", "#FFB6C1", "#DB7093", "#FF00FF", "#FFA07A"];
+        return colores[Math.floor(Math.random() * colores.length)];
+      }
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "Te amo 💖";
+      heart.style.left = (e.clientX || 100) + "px";
+      heart.style.top = (e.clientY || window.innerHeight - 50) + "px";
+      heart.style.fontSize = (18 + Math.random() * 20) + "px";
+      heart.style.color = getRandomColor();
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+  </script>
+
+</body>
+</html>
